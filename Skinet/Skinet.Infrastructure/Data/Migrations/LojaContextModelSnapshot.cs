@@ -37,19 +37,24 @@ namespace Skinet.Infrastructure.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(180)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImagemUrl")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("MarcaProdutoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Preco")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("TipoProdutoId")
                         .HasColumnType("INTEGER");
