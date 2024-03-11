@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entities;
 using Skinet.Core.Interfaces;
 
@@ -5,13 +6,20 @@ namespace Skinet.Infrastructure.Data;
 
 public class ProdutoRepository : IProdutoRepository
 {
-    public Task<IReadOnlyList<Produto>> ObterProdutosAsync()
+    private readonly LojaContext _context;
+
+    public ProdutoRepository(LojaContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public Task<Produto> ObterProdutoPorIdAsync(int id)
+    public async Task<IReadOnlyList<Produto>> ObterProdutosAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Produtos.ToListAsync();
+    }
+
+    public async Task<Produto> ObterProdutoPorIdAsync(int id)
+    {
+        return await _context.Produtos.FindAsync(id);
     }
 }
