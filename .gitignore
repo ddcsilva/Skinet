@@ -533,9 +533,6 @@ FodyWeavers.xsd
 # VS Code
 .vscode/
 
-# SQLite database files
-*.db-*
-
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
