@@ -30,4 +30,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Aplique as migrações do banco de dados ao iniciar a aplicação
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var context = services.GetRequiredService<LojaContext>();
+var logger = services.GetRequiredService<ILogger<Program>>();
+
+try
+{
+    await context.Database.MigrateAsync();
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, "Ocorreu um erro durante a migração do banco de dados");
+}
+
 app.Run();
