@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Skinet.API.Data;
+using Skinet.API.Entities;
 
 namespace Skinet.API.Controllers;
 
@@ -6,15 +9,24 @@ namespace Skinet.API.Controllers;
 [Route("api/[controller]")]
 public class ProdutosController : ControllerBase
 {
-    [HttpGet]
-    public string ObterProdutos()
+    private readonly LojaContext _context;
+
+    public ProdutosController(LojaContext context)
     {
-        return "Esta é uma lista de produtos";
+        _context = context;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<Produto>>> ObterProdutos()
+    {
+        var produtos = await _context.Produtos.ToListAsync();
+        return produtos;
     }
 
     [HttpGet("{id}")]
-    public string ObterProduto(int id)
+    public async Task<ActionResult<Produto>> ObterProduto(int id)
     {
-        return "Este é um produto";
+        var produto = await _context.Produtos.FindAsync(id);
+        return produto;
     }
 }
