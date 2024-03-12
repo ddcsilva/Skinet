@@ -15,12 +15,18 @@ public class ProdutoRepository : IProdutoRepository
 
     public async Task<IReadOnlyList<Produto>> ObterProdutosAsync()
     {
-        return await _context.Produtos.ToListAsync();
+        return await _context.Produtos
+            .Include(p => p.MarcaProduto)
+            .Include(p => p.TipoProduto)
+            .ToListAsync();
     }
 
     public async Task<Produto> ObterProdutoPorIdAsync(int id)
     {
-        return await _context.Produtos.FindAsync(id);
+        return await _context.Produtos
+            .Include(p => p.MarcaProduto)
+            .Include(p => p.TipoProduto)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<IReadOnlyList<MarcaProduto>> ObterMarcasProdutoAsync()
