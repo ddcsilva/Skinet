@@ -30,4 +30,18 @@ public class ProdutosController : ControllerBase
         var produto = await _produtoRepository.ObterProdutoPorIdAsync(id);
         return Ok(produto);
     }
+
+    [HttpGet("marcas")]
+    public async Task<ActionResult<IReadOnlyList<MarcaProduto>>> ObterMarcasProduto()
+    {
+        var marcas = await _produtoRepository.ObterMarcasProdutoAsync();
+        return Ok(marcas);
+    }
+
+    [HttpGet("tipos")]
+    public async Task<ActionResult<IReadOnlyList<TipoProduto>>> ObterTiposProduto()
+    {
+        var tipos = await _produtoRepository.ObterTiposProdutoAsync();
+        return Ok(tipos);
+    }
 }

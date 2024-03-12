@@ -22,4 +22,14 @@ public class ProdutoRepository : IProdutoRepository
     {
         return await _context.Produtos.FindAsync(id);
     }
+
+    public async Task<IReadOnlyList<MarcaProduto>> ObterMarcasProdutoAsync()
+    {
+        return await _context.MarcasProduto.ToListAsync();
+    }
+
+    public async Task<IReadOnlyList<TipoProduto>> ObterTiposProdutoAsync()
+    {
+        return await _context.TiposProduto.ToListAsync();
+    }
 }
